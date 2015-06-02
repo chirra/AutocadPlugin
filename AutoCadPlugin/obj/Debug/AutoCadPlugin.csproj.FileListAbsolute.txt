@@ -1,0 +1,6 @@
+C:\.vstudio\AutoCadPlugin\AutoCadPlugin\bin\Debug\AutoCadPlugin.dll
+C:\.vstudio\AutoCadPlugin\AutoCadPlugin\bin\Debug\AutoCadPlugin.pdb
+C:\.vstudio\AutoCadPlugin\AutoCadPlugin\bin\Debug\AcDbMgd.dll
+C:\.vstudio\AutoCadPlugin\AutoCadPlugin\obj\Debug\AutoCadPlugin.dll
+C:\.vstudio\AutoCadPlugin\AutoCadPlugin\obj\Debug\AutoCadPlugin.pdb
+C:\.vstudio\AutoCadPlugin\AutoCadPlugin\obj\Debug\AutoCadPlugin.csprojResolveAssemblyReference.cache
