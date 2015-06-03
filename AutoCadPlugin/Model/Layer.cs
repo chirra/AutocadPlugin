@@ -8,23 +8,19 @@ namespace AutoCadPlugin.Model
 {
     class Layer
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string Name { get; set; }
         public IList<Shape> Shapes { get; set; }
 
-        public Layer()
+        public Layer(string name)
         {
+            Name = name;
         }
 
-        public Layer(string firstName, string lastName)
-        {
-            FirstName = firstName;
-            LastName = lastName;
-        }
+        
 
         public override string ToString()
         {
-            return string.Format("{0} {1}", FirstName, LastName);
+            return string.Format("{0}", Name);
         }
     }
 }

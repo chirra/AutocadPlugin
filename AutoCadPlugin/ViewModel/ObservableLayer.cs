@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoCadPlugin.Model;
 
 namespace AutoCadPlugin.ViewModel
 {
@@ -14,6 +16,13 @@ namespace AutoCadPlugin.ViewModel
         {
             get
             {
+                if (_observableShapes == null)
+                {
+                   _observableShapes  = new List<ObservableShape>();
+                    _observableShapes.Add(new ObservableShape("rectangle"));
+                }
+
+              
                 return _observableShapes;
             }
             set
@@ -28,11 +37,15 @@ namespace AutoCadPlugin.ViewModel
         public ObservableLayer(string name)
         {
             Name = name;
-            ObservableShapes = new List<ObservableShape>()
+        }
+
+        public ObservableLayer(string name, IList<ObservableShape> observableShapes ):this(name)
+        {
+            foreach (var observableShape in observableShapes)
             {
-                new ObservableShape("rectangle"),
-                new ObservableShape("circle")
-            };
+                ObservableShapes.Add(observableShape);
+            }
+            
         }
     }
 }

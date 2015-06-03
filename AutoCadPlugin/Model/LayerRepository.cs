@@ -4,27 +4,70 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.DatabaseServices;
 
 namespace AutoCadPlugin.Model
 {
     class LayerRepository
     {
 
-        private static ObservableCollection<Layer> _layers;
+        private static IList<Layer> _layers;
 
-        public static ObservableCollection<Layer> AllLayers
+        public static IList<Layer> AllLayers
         {
             get
             {
                 if (_layers == null)
-                    _layers = GenerateClientRepository();
+                    _layers = GenerateLayerRepository();
                 return _layers;
             }
         }
 
-        private static ObservableCollection<Layer> GenerateClientRepository()
+        private static IList<Layer> GenerateLayerRepository()
         {
-            Shape rectangle = new Shape("rectangle");
+
+            Document acDoc = Autodesk.AutoCAD.ApplicationServices.Application.DocumentManager.MdiActiveDocument;
+            Database acCurDb = acDoc.Database;
+            _layers = new List<Layer>();
+
+            // блокируем документ
+            using (DocumentLock docloc = acDoc.LockDocument())
+            {
+                // начинаем транзакцию
+                using (Transaction tr = acCurDb.TransactionManager.StartTransaction())
+                {
+                    // открываем таблицу слоев документа
+                    //LayerTable acLyrTbl = tr.GetObject(acCurDb.LayerTableId, OpenMode.ForWrite) as LayerTable;
+                    LayerTable tblLayer = (LayerTable)tr.GetObject(acCurDb.LayerTableId, OpenMode.ForRead, false);
+                    foreach (var layer in tblLayer)
+                    {
+                        LayerTableRecord entLayer = (LayerTableRecord)tr.GetObject(layer, OpenMode.ForRead);
+                        _layers.Add(new Layer(entLayer.Name));
+                    }
+
+
+                   
+                    
+
+                    /*// создаем новый слой и задаем ему имя
+                    LayerTableRecord acLyrTblRec = new LayerTableRecord();
+                    acLyrTblRec.Name = "HabrLayer";
+
+                    // заносим созданный слой в таблицу слоев
+                    acLyrTbl.Add(acLyrTblRec);
+
+                    // добавляем созданный слой в документ
+                    tr.AddNewlyCreatedDBObject(acLyrTblRec, true);
+
+                    // фиксируем транзакцию
+                    tr.Commit();*/
+                }
+            }
+
+            return _layers;
+
+            /*Shape rectangle = new Shape("rectangle");
             Shape circle = new Shape("circle");
             Shape point = new Shape("point");
 
@@ -43,7 +86,7 @@ namespace AutoCadPlugin.Model
             ObservableCollection<Layer> layers = new ObservableCollection<Layer>();
             layers.Add(layer1);
             layers.Add(layer2);
-            return layers;
+            return layers;*/
         }
     }
 }

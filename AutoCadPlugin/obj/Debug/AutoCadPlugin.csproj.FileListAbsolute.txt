@@ -8,4 +8,3 @@ c:\.vstudio\AutoCadPlugin\AutoCadPlugin\obj\Debug\AutoCadPlugin_MarkupCompile.ca
 c:\.vstudio\AutoCadPlugin\AutoCadPlugin\obj\Debug\AutoCadPlugin.g.resources
 c:\.vstudio\AutoCadPlugin\AutoCadPlugin\obj\Debug\GeneratedInternalTypeHelper.g.cs
 c:\.vstudio\AutoCadPlugin\AutoCadPlugin\obj\Debug\AutoCadPlugin_MarkupCompile.lref
-c:\.vstudio\AutoCadPlugin\AutoCadPlugin\obj\Debug\AutoCadPlugin.csprojResolveAssemblyReference.cache

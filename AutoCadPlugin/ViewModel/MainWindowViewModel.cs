@@ -32,12 +32,17 @@ namespace AutoCadPlugin.ViewModel
             get
             {
                 if (_layers == null)
-                    //_layers = LayerRepository.AllLayers;
-                    _layers = new ObservableCollection<ObservableLayer>()
+                {
+                    _layers = new ObservableCollection<ObservableLayer>();
+                    foreach(var layer in LayerRepository.AllLayers)
+                        _layers.Add(new ObservableLayer(layer.Name));
+                }
+                    
+                   /* _layers = new ObservableCollection<ObservableLayer>()
                     {
                         new ObservableLayer("Layer1"),
                         new ObservableLayer("Layer2")
-                    };
+                    };*/
                 return _layers;
             }
             set
