@@ -2,11 +2,52 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:AutoCadPlugin.ViewModel"
+             xmlns:self="clr-namespace:Autodesk.AutoCAD.Windows;assembly=acmgd"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="89,77,0,0" VerticalAlignment="Top" Width="75"/>
+    
+    <UserControl.DataContext>
+        <local:MainWindowViewModel></local:MainWindowViewModel>
+    </UserControl.DataContext>
+    
+    
+  <UserControl.Resources>
+        <HierarchicalDataTemplate DataType="{x:Type local:Layer}" ItemsSource="{Binding Shapes}">
+            <Label Content="{Binding Name}"></Label>
+        </HierarchicalDataTemplate>
+      
+      <DataTemplate DataType="{x:Type local:Shape}">
+          <Label Content="{Binding Name}"></Label>
+      </DataTemplate>
+    </UserControl.Resources>
+
+        <Grid>
+        <!--<TreeView Name="LayersTreeView" Margin="5">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate DataType="local:MainWindowViewModel" ItemsSource="{Binding Path=Layers}">
+                    <TextBlock Text="{Binding Path=CurrentLayer.FirstName}"/>
+                    <HierarchicalDataTemplate.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=CurrentLayer}"></TextBlock>
+                        </DataTemplate>
+                    </HierarchicalDataTemplate.ItemTemplate>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>-->
+        
+        <!--<ListBox ItemsSource="{Binding Path=Layers}"></ListBox>-->
+
+        <TreeView Name="LayersTreeView" ItemsSource="{Binding Layers}"/>
+        <!--<TreeView Name="LayersTreeView" ItemsSource="{Binding Layers}">
+            
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Shapes}">
+                    <TextBlock Text="00000" />
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>-->
 
     </Grid>
 </UserControl>

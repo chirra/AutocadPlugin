@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AutoCadPlugin.ViewModel;
 
 namespace AutoCadPlugin.View
 {
@@ -23,6 +24,7 @@ namespace AutoCadPlugin.View
         public MainWindow()
         {
             InitializeComponent();
+            //LayersTreeView.ItemsSource = (new MainWindowViewModel()).Layers;
         }
 
         public void Connect(int connectionId, object target)
