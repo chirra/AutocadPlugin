@@ -4,7 +4,7 @@
 library
 C#
 .cs
-c:\.vstudio\AutoCadPlugin\AutoCadPlugin\obj\Debug\
+C:\.vstudio\AutoCadPlugin\AutoCadPlugin\obj\Debug\
 AutoCadPlugin
 none
 false
@@ -12,9 +12,9 @@ DEBUG;TRACE
 
 1-1711142684
 
-14478696971
-192046129575
+14-22292969
+19-467804039
 View\MainWindow.xaml;
 
-True
+False
 

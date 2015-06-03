@@ -10,13 +10,13 @@ namespace AutoCadPlugin.ViewModel
 {
     class MainWindowViewModel: ViewModelBase
     {
-        /*Layer _currentLayer;
-        public Layer CurrentLayer
+        /*ObservableLayer _currentLayer;
+        public ObservableLayer CurrentLayer
         {
             get
             {
                 if (_currentLayer == null)
-                    _currentLayer = new Layer();
+                    _currentLayer = new ObservableLayer();
                 return _currentLayer;
             }
             set
@@ -26,17 +26,17 @@ namespace AutoCadPlugin.ViewModel
             }
         }*/
 
-        ObservableCollection<Layer> _layers;
-        public ObservableCollection<Layer> Layers
+        ObservableCollection<ObservableLayer> _layers;
+        public ObservableCollection<ObservableLayer> Layers
         {
             get
             {
                 if (_layers == null)
                     //_layers = LayerRepository.AllLayers;
-                    _layers = new ObservableCollection<Layer>()
+                    _layers = new ObservableCollection<ObservableLayer>()
                     {
-                        new Layer("Layer1"),
-                        new Layer("Layer2")
+                        new ObservableLayer("Layer1"),
+                        new ObservableLayer("Layer2")
                     };
                 return _layers;
             }
@@ -47,9 +47,9 @@ namespace AutoCadPlugin.ViewModel
             }
         }
 
-        /*ObservableCollection<Shape> _shapes;
+        /*ObservableCollection<ObservableShape> _shapes;
 
-        public ObservableCollection<Shape> Shapes
+        public ObservableCollection<ObservableShape> observableShapes
         {
             get
             {

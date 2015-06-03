@@ -14,11 +14,11 @@
     
     
   <UserControl.Resources>
-        <HierarchicalDataTemplate DataType="{x:Type local:Layer}" ItemsSource="{Binding Shapes}">
+        <HierarchicalDataTemplate DataType="{x:Type local:ObservableLayer}" ItemsSource="{Binding ObservableShapes}">
             <Label Content="{Binding Name}"></Label>
         </HierarchicalDataTemplate>
       
-      <DataTemplate DataType="{x:Type local:Shape}">
+      <DataTemplate DataType="{x:Type local:ObservableShape}">
           <Label Content="{Binding Name}"></Label>
       </DataTemplate>
     </UserControl.Resources>
