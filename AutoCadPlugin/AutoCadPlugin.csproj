@@ -98,6 +98,9 @@
     <Compile Include="ViewModel\ObservableLayer.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\ObservableShape.cs" />
+    <Compile Include="ViewModel\ObservableShapeCircle.cs" />
+    <Compile Include="ViewModel\ObservableShapeLine.cs" />
+    <Compile Include="ViewModel\ObservableShapePoint.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\MainWindow.xaml.cs">

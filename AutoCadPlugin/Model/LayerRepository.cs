@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Windows;
 
 namespace AutoCadPlugin.Model
@@ -79,26 +80,45 @@ namespace AutoCadPlugin.Model
 
             return _layers;
 
-            /*Shape rectangle = new Shape("rectangle");
-            Shape circle = new Shape("circle");
-            Shape point = new Shape("point");
+           
+        }
 
 
-            Layer layer1 = new Layer("Jhon", "Doe");
-            layer1.Shapes = new List<Shape>();
-            layer1.Shapes.Add(rectangle);
-            layer1.Shapes.Add(point);
+        public static void FilterSelectionSet(string layerName)
+        {
+             Document acDoc = Autodesk.AutoCAD.ApplicationServices.Application.DocumentManager.MdiActiveDocument;
+            using (DocumentLock docloc = acDoc.LockDocument())
+            {
+                // ''Получение редактора текущего документа
+                Editor acDocEd =
+                    Autodesk.AutoCAD.ApplicationServices.Application.DocumentManager.MdiActiveDocument.Editor;
 
-            Layer layer2 = new Layer("Tom", "Ronald");
-            layer1.Shapes = new List<Shape>();
-            layer1.Shapes.Add(circle);
-            layer1.Shapes.Add(point);
+                // Создание массива TypedValue для определение критериев фильтра
+                TypedValue[] acTypValAr = new TypedValue[1];
+                acTypValAr.SetValue(new TypedValue((int) DxfCode.LayerName, layerName), 0);
 
-            
-            ObservableCollection<Layer> layers = new ObservableCollection<Layer>();
-            layers.Add(layer1);
-            layers.Add(layer2);
-            return layers;*/
+                // Назначение критериев фильтра объекту SelectionFilter
+                SelectionFilter acSelFtr = new SelectionFilter(acTypValAr);
+
+                // Запрос выбора объектов на чертеже
+                PromptSelectionResult acSSPrompt;
+                acSSPrompt = acDocEd.SelectAll(acSelFtr);
+
+                // Если статус запрса OK, объекты выбраны
+                if (acSSPrompt.Status == PromptStatus.OK)
+                {
+                    SelectionSet acSSet = acSSPrompt.Value;
+
+                    
+
+                    Application.ShowAlertDialog("Количество выбранных объектов: " +
+                                                acSSet.Count.ToString());
+                }
+                else
+                {
+                    Application.ShowAlertDialog("Количество выбранных объектов: 0");
+                }
+            }
         }
     }
 }

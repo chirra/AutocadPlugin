@@ -28,7 +28,7 @@
             </StackPanel>
         </HierarchicalDataTemplate>
       
-      <DataTemplate DataType="{x:Type local:ObservableShape}">
+      <DataTemplate DataType="{x:Type local:ObservableShapeCircle}">
           <Label Content="{Binding Name}"></Label>
       </DataTemplate>
     </UserControl.Resources>
