@@ -26,6 +26,7 @@ namespace AutoCadPlugin.ViewModel
             }
         }*/
 
+
         ObservableCollection<ObservableLayer> _layers;
         public ObservableCollection<ObservableLayer> Layers
         {
@@ -35,7 +36,7 @@ namespace AutoCadPlugin.ViewModel
                 {
                     _layers = new ObservableCollection<ObservableLayer>();
                     foreach(var layer in LayerRepository.AllLayers)
-                        _layers.Add(new ObservableLayer(layer.Name));
+                        _layers.Add(new ObservableLayer(layer.Name, layer.Color, layer.Transparency));
                 }
                     
                    /* _layers = new ObservableCollection<ObservableLayer>()

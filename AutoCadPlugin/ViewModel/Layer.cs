@@ -25,6 +25,8 @@ namespace AutoCadPlugin.ViewModel
 
         public string Name { get; set; }
 
+   
+
         public Layer(string name)
         {
             Name = name;

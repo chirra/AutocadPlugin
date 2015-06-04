@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.Windows;
 
 namespace AutoCadPlugin.Model
 {
@@ -42,8 +43,19 @@ namespace AutoCadPlugin.Model
                     LayerTable tblLayer = (LayerTable)tr.GetObject(acCurDb.LayerTableId, OpenMode.ForRead, false);
                     foreach (var layer in tblLayer)
                     {
+                        byte layerTransparency = 0;
                         LayerTableRecord entLayer = (LayerTableRecord)tr.GetObject(layer, OpenMode.ForRead);
-                        _layers.Add(new Layer(entLayer.Name));
+                        try
+                        {
+                            layerTransparency = entLayer.Transparency.Alpha;
+                        }
+                        catch (Exception)
+                        {
+
+                            layerTransparency = 0;
+                        }
+
+                        _layers.Add(new Layer(entLayer.Name, '#' + entLayer.Color.ColorValue.Name.Substring(2, 6), layerTransparency));
                     }
 
 

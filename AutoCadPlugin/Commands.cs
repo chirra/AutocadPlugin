@@ -25,7 +25,7 @@ namespace AutoCadPlugin
         // функция инициализации (выполняется при загрузке плагина)
         public void Initialize()
         {
-            MessageBox.Show("Hello!");
+            //MessageBox.Show("Hello!");
         }
 
         // функция, выполняемая при выгрузке плагина
@@ -36,7 +36,7 @@ namespace AutoCadPlugin
 
         static PaletteSet _ps = null;
         // эта функция будет вызываться при выполнении в AutoCAD команды «TestCommand»
-        [CommandMethod("TestCommand")]
+        [CommandMethod("Autocad")]
         public void MyCommand()
         {
 
