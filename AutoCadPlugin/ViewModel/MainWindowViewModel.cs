@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using AutoCadPlugin.Infrastructure;
 using AutoCadPlugin.Model;
 
 namespace AutoCadPlugin.ViewModel
@@ -27,14 +29,14 @@ namespace AutoCadPlugin.ViewModel
         }*/
 
 
-        ObservableCollection<ObservableLayer> _layers;
-        public ObservableCollection<ObservableLayer> Layers
+        ObservableCollection<ObservableLayer> _observableLayers;
+        public ObservableCollection<ObservableLayer> ObservableLayers
         {
             get
             {
-                if (_layers == null)
+                if (_observableLayers == null)
                 {
-                    _layers = new ObservableCollection<ObservableLayer>();
+                    _observableLayers = new ObservableCollection<ObservableLayer>();
                     foreach (var layer in LayerRepository.AllLayers)
                     {
                         /*ObservableShape shape1 = new ObservableShapeCircle("Circle", 12, 11, 56, 44);
@@ -70,22 +72,39 @@ namespace AutoCadPlugin.ViewModel
                             }
                         }
 
-                        _layers.Add(observableLayer);
+                        _observableLayers.Add(observableLayer);
                     }
                 }
                     
-                   /* _layers = new ObservableCollection<ObservableLayer>()
+                   /* _observableLayers = new ObservableCollection<ObservableLayer>()
                     {
                         new ObservableLayer("Layer1"),
                         new ObservableLayer("Layer2")
                     };*/
-                return _layers;
+                return _observableLayers;
             }
             set
             {
-                _layers = value;
-                OnPropertyChanged("Layers");
+                _observableLayers = value;
+                OnPropertyChanged("ObservableLayers");
             }
+        }
+
+        RelayCommand _commandRefresh;
+        public ICommand CommandRefresh
+        {
+            get
+            {
+                if (_commandRefresh == null)
+                    //_commandRefresh = new RelayCommand(RefreshObservableLayers, CanRefreshObservableLayers);
+                    _commandRefresh = new RelayCommand(RefreshObservableLayers);
+                return _commandRefresh;
+            }
+        }
+
+        public void RefreshObservableLayers(object parameter)
+        {
+            ObservableLayers = null;
         }
 
         /*ObservableCollection<ObservableShape> _shapes;

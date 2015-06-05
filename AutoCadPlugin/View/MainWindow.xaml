@@ -64,12 +64,12 @@
         </Grid.RowDefinitions>
 
         <Border BorderThickness ="2">
-        <TreeView Grid.Row="0" Name="LayersTreeView" ItemsSource="{Binding Layers}"/>
+        <TreeView Grid.Row="0" Name="LayersTreeView" ItemsSource="{Binding ObservableLayers}"/>
             
 
         </Border>
         <Button Content="Применить" HorizontalAlignment="Left" Margin="5,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
         <Button Content="Отмена" HorizontalAlignment="Left" Margin="90,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Обновить" HorizontalAlignment="Left" Margin="175,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Обновить" Command ="{Binding CommandRefresh}" HorizontalAlignment="Left" Margin="175,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
     </Grid>
 </UserControl>

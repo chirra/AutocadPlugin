@@ -92,6 +92,7 @@
   <ItemGroup>
     <Compile Include="Commands.cs" />
     <Compile Include="DAL\DalLayers.cs" />
+    <Compile Include="Infrastructure\RelayCommand.cs" />
     <Compile Include="Model\Circle.cs" />
     <Compile Include="Model\Layer.cs" />
     <Compile Include="Model\LayerRepository.cs" />

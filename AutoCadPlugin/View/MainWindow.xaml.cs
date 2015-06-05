@@ -24,7 +24,7 @@ namespace AutoCadPlugin.View
         public MainWindow()
         {
             InitializeComponent();
-            //LayersTreeView.ItemsSource = (new MainWindowViewModel()).Layers;
+            //LayersTreeView.ItemsSource = (new MainWindowViewModel()).ObservableLayers;
         }
 
         public void Connect(int connectionId, object target)
