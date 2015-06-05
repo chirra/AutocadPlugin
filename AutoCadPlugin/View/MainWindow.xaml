@@ -29,15 +29,37 @@
         </HierarchicalDataTemplate>
       
       <DataTemplate DataType="{x:Type local:ObservableShapeCircle}">
-          <Label Content="{Binding Name}"></Label>
-      </DataTemplate>
+            <StackPanel Orientation="Horizontal"> 
+                <Label Content="{Binding Path=Name}"></Label>
+                <Label Content="{Binding Path=X}"></Label>
+                <Label Content="{Binding Path=Y}"></Label>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:ObservableShapeLine}">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="{Binding Path=Name}"></Label>
+                <Label Content="{Binding Path=X1}"></Label>
+                <Label Content="{Binding Path=Y1}"></Label>
+                <Label Content="{Binding Path=X2}"></Label>
+                <Label Content="{Binding Path=Y2}"></Label>
+                <Label Content="{Binding Path=H}"></Label>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:ObservableShapePoint}">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="{Binding Path=Name}"></Label>
+                <Label Content="{Binding Path=X}"></Label>
+                <Label Content="{Binding Path=Y}"></Label>
+                <Label Content="{Binding Path=H}"></Label>
+            </StackPanel>
+        </DataTemplate>
     </UserControl.Resources>
 
     <Grid >
         
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
-            <RowDefinition Height="40*"/>
+            
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
 
@@ -46,8 +68,8 @@
             
 
         </Border>
-        <Button Content="Применить" HorizontalAlignment="Left" Margin="5,5,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Отмена" HorizontalAlignment="Left" Margin="90,5,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Обновить" HorizontalAlignment="Left" Margin="175,5,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Применить" HorizontalAlignment="Left" Margin="5,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Отмена" HorizontalAlignment="Left" Margin="90,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Обновить" HorizontalAlignment="Left" Margin="175,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
     </Grid>
 </UserControl>

@@ -89,7 +89,7 @@ namespace AutoCadPlugin
 
                     // создаем новый слой и задаем ему имя
                     LayerTableRecord acLyrTblRec = new LayerTableRecord();
-                    acLyrTblRec.Name = "HabrLayer";
+                    acLyrTblRec.Type = "HabrLayer";
 
                     // заносим созданный слой в таблицу слоев
                     acLyrTbl.Add(acLyrTblRec);

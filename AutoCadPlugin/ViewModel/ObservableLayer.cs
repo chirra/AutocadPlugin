@@ -18,7 +18,7 @@ namespace AutoCadPlugin.ViewModel
                 if (_observableShapes == null)
                 {
                    _observableShapes  = new List<ObservableShape>();
-                    _observableShapes.Add(new ObservableShape("rectangle"));
+                    //_observableShapes.Add(new ObservableShape("rectangle"));
                 }
 
               

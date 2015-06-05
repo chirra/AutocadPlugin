@@ -24,3 +24,4 @@ C:\.vstudio\AutoCadPlugin\AutoCadPlugin\bin\Debug\ro\Xceed.Wpf.AvalonDock.resour
 C:\.vstudio\AutoCadPlugin\AutoCadPlugin\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
 C:\.vstudio\AutoCadPlugin\AutoCadPlugin\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
 C:\.vstudio\AutoCadPlugin\AutoCadPlugin\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+C:\.vstudio\AutoCadPlugin\AutoCadPlugin\obj\Debug\AutoCadPlugin.csprojResolveAssemblyReference.cache

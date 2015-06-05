@@ -16,7 +16,7 @@ namespace AutoCadPlugin.ViewModel
             set
             {
                 name = value;
-                OnPropertyChanged("Name");
+                OnPropertyChanged("Type");
             }
         }
 

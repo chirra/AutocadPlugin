@@ -8,16 +8,16 @@ namespace AutoCadPlugin.Model
 {
     class Shape
    {
-        public string Name { get; set; }
+        public string Type { get; set; }
 
-        public Shape(string name)
+        public Shape(string type)
         {
-            Name = name;
+            Type = type;
         }
 
         public override string ToString()
         {
-            return Name;
+            return Type;
         }
    }
 }
