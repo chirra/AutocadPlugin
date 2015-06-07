@@ -11,7 +11,7 @@ namespace AutoCadPlugin.Model
         public Point StartPoint { get; set; }
         public Point EndPoint { get; set; }
 
-        public Line(Point startPoint, Point endPoint):base("line")
+        public Line(string id, Point startPoint, Point endPoint):base("line", id)
         {
             StartPoint = startPoint;
             EndPoint = endPoint;

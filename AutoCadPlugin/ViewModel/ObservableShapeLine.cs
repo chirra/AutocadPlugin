@@ -8,7 +8,7 @@ namespace AutoCadPlugin.ViewModel
 {
     class ObservableShapeLine: ObservableShape
     {
-        private double _x1;
+        /*private double _x1;
         public double X1
         {
             get { return _x1; }
@@ -28,9 +28,34 @@ namespace AutoCadPlugin.ViewModel
                 _y1 = value;
                 OnPropertyChanged("Y1");
             }
+        }*/
+
+        private ObservableShapePoint startPoint;
+
+        public ObservableShapePoint StartPoint
+        {
+            get { return startPoint;}
+            set
+            {
+                startPoint = value;
+                OnPropertyChanged("StartPoint");
+            }
         }
 
-        private double _x2;
+        private ObservableShapePoint endPoint;
+
+        public ObservableShapePoint EndPoint
+        {
+            get { return endPoint; }
+            set
+            {
+                startPoint = value;
+                OnPropertyChanged("EndPoint");
+            }
+        }
+
+
+        /*private double _x2;
         public double X2
         {
             get { return _x2; }
@@ -61,8 +86,9 @@ namespace AutoCadPlugin.ViewModel
                 _h = value;
                 OnPropertyChanged("H");
             }
-        }
+        }*/
 
+/*
         public ObservableShapeLine(string name, double x1, double y1, double x2, double y2, double h):base(name)
         {
             X1 = x1;
@@ -70,6 +96,13 @@ namespace AutoCadPlugin.ViewModel
             X2 = x2;
             Y2 = y2;
             H = h;
+        }
+*/
+
+        public ObservableShapeLine(string id, ObservableShapePoint startPoint, ObservableShapePoint endPoint):base("line", id)
+        {
+            StartPoint = startPoint;
+            EndPoint = endPoint;
         }
     }
 }

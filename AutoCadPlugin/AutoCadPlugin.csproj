@@ -37,7 +37,8 @@
       <HintPath>..\..\..\ObjectARX 2015\inc\AcCoreMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="AcDbMgd">
+    <Reference Include="AcDbMgd, Version=20.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\ObjectARX 2015\inc\AcDbMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>

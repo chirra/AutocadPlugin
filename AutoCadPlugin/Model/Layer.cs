@@ -10,39 +10,35 @@ namespace AutoCadPlugin.Model
 {
     class Layer
     {
+        public string Id { get; set; }
         public string Name { get; set; }
         public IList<Shape> Shapes { get; set; }
 
-        private byte transparency = 0;
+        private byte _transparency = 0;
         public byte Transparency
         {
-            get { return transparency; }
+            get { return _transparency; }
             set
             {
-                if (value < 0) transparency = 0;
-                else if (value >255) transparency = 255;
-                else transparency = value;
+                if (value < 0) _transparency = 0;
+                else if (value >255) _transparency = 255;
+                else _transparency = value;
             }
         }
 
-        private string color = "#ffffff";
+        private string _color = "#ffffff";
 
         public string Color
         {
-            get { return color; } 
-            set { color = value; } 
+            get { return _color; } 
+            set { _color = value; } 
         }
 
 
-        public Layer(string name)
+       public Layer(string id, string name, string color, byte transparency)
         {
-            Name = name;
-            Color = "#ffffff";
-            Transparency = 0;
-        }
-
-        public Layer(string name, string color, byte transparency): this(name)
-        {
+            Id = id;
+           Name = name;
             Color = color;
             Transparency = transparency;
         }

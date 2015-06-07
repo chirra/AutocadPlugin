@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using AutoCadPlugin.ViewModel;
+using Autodesk.AutoCAD.PlottingServices;
+using ThicknessConverter = Xceed.Wpf.DataGrid.Converters.ThicknessConverter;
 
 namespace AutoCadPlugin.View
 {
@@ -25,11 +27,18 @@ namespace AutoCadPlugin.View
         {
             InitializeComponent();
             //LayersTreeView.ItemsSource = (new MainWindowViewModel()).ObservableLayers;
+            
         }
+
+        
 
         public void Connect(int connectionId, object target)
         {
             throw new NotImplementedException();
         }
+
+        
+
+
     }
 }

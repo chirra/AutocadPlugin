@@ -22,35 +22,37 @@
                 <!--<xctk:ColorPicker Name="ClrPcker_Background" ></xctk:ColorPicker>-->
                 <!--<xctk:ColorCanvas  />-->
                 <Button Background="{Binding Path=Color}" Height="10" Width="10"></Button>
-                <TextBox Width="20" Margin="5,5,5,5"  Text="{Binding Path=Transparency}"></TextBox>
-                <Label Content="{Binding Name}"></Label>
+                <TextBox Width="20" Margin="5,5,5,5"  Text="{Binding Path=Transparency, UpdateSourceTrigger=Explicit}"></TextBox>
+                <Label Content="{Binding Name, UpdateSourceTrigger=PropertyChanged}"></Label>
                 
             </StackPanel>
         </HierarchicalDataTemplate>
       
       <DataTemplate DataType="{x:Type local:ObservableShapeCircle}">
             <StackPanel Orientation="Horizontal"> 
-                <Label Content="{Binding Path=Name}"></Label>
-                <Label Content="{Binding Path=X}"></Label>
-                <Label Content="{Binding Path=Y}"></Label>
+                <TextBox Text="{Binding Path=Type}"></TextBox>
+                <TextBox Text="{Binding Path=CenterPoint.X, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox Text="{Binding Path=CenterPoint.Y, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox Text="{Binding Path=CenterPoint.Z, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             </StackPanel>
         </DataTemplate>
         <DataTemplate DataType="{x:Type local:ObservableShapeLine}">
             <StackPanel Orientation="Horizontal">
-                <Label Content="{Binding Path=Name}"></Label>
-                <Label Content="{Binding Path=X1}"></Label>
-                <Label Content="{Binding Path=Y1}"></Label>
-                <Label Content="{Binding Path=X2}"></Label>
-                <Label Content="{Binding Path=Y2}"></Label>
-                <Label Content="{Binding Path=H}"></Label>
+                <TextBox Text="{Binding Path=Type}"></TextBox>
+                <TextBox Text="{Binding Path=StartPoint.X, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox Text="{Binding Path=StartPoint.Y, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox Text="{Binding Path=StartPoint.Z, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox Text="{Binding Path=EndPoint.X, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox Text="{Binding Path=EndPoint.Y, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox Text="{Binding Path=EndPoint.Z, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             </StackPanel>
         </DataTemplate>
         <DataTemplate DataType="{x:Type local:ObservableShapePoint}">
             <StackPanel Orientation="Horizontal">
-                <Label Content="{Binding Path=Name}"></Label>
-                <Label Content="{Binding Path=X}"></Label>
-                <Label Content="{Binding Path=Y}"></Label>
-                <Label Content="{Binding Path=H}"></Label>
+                <TextBox Text="{Binding Path=Type}"></TextBox>
+                <TextBox Text="{Binding Path=X, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox Text="{Binding Path=Y, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox Text="{Binding Path=Z, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             </StackPanel>
         </DataTemplate>
     </UserControl.Resources>
@@ -68,7 +70,7 @@
             
 
         </Border>
-        <Button Content="Применить" HorizontalAlignment="Left" Margin="5,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Применить" Command ="{Binding CommandApply}" HorizontalAlignment="Left" Margin="5,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
         <Button Content="Отмена" HorizontalAlignment="Left" Margin="90,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
         <Button Content="Обновить" Command ="{Binding CommandRefresh}" HorizontalAlignment="Left" Margin="175,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
     </Grid>

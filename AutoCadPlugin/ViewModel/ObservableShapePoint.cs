@@ -32,25 +32,25 @@ namespace AutoCadPlugin.ViewModel
         }
 
 
-        private double _h;
-        public double H
+        private double _z;
+        public double Z
         {
-            get { return _h; }
+            get { return _z; }
             set
             {
-                _h = value;
-                OnPropertyChanged("H");
+                _z = value;
+                OnPropertyChanged("Z");
             }
         }
         
 
 
 
-        public ObservableShapePoint(string name, double x, double y, double h):base(name)
+        public ObservableShapePoint(string id, double x, double y, double z):base("point", id)
         {
             X = x;
             Y = y;
-            H = h;
+            Z = z;
         }
 
     }

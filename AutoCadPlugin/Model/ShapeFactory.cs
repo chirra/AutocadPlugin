@@ -11,23 +11,23 @@ namespace AutoCadPlugin.Model
     class ShapeFactory
     {
 
-        public static Shape GetShape(string type, ArrayList parameters)
+        public static Shape GetShape(string type, string id, ArrayList parameters)
         {
-            Shape result = new Shape(type);
+            Shape result = new Shape(type, id);
 
             switch (type.ToLower().Trim())
             {
                 case "point":
-                    result = new Point((double) parameters[0], (double) parameters[1], (double) parameters[2]);
+                    result = new Point(id, (double) parameters[0], (double) parameters[1], (double) parameters[2]);
                     break;
                 case "line":
-                    result = new Line(
-                        new Point((double)parameters[0], (double)parameters[1], (double)parameters[2]), 
-                        new Point((double)parameters[3], (double)parameters[4], (double)parameters[5])
+                    result = new Line(id,
+                        new Point(id, (double)parameters[0], (double)parameters[1], (double)parameters[2]), 
+                        new Point(id, (double)parameters[3], (double)parameters[4], (double)parameters[5])
                         );
                     break;
                 case "circle":
-                    result = new Circle(new Point((double)parameters[0], (double)parameters[1], (double)parameters[2]), (double)parameters[3]);
+                    result = new Circle(id, new Point(id, (double)parameters[0], (double)parameters[1], (double)parameters[2]), (double)parameters[3]);
                     break;
             }
 

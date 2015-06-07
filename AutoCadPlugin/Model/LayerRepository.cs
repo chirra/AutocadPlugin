@@ -21,7 +21,7 @@ namespace AutoCadPlugin.Model
         {
             get
             {
-                if (_layers == null)
+               // if (_layers == null)
                     _layers = GenerateLayerRepository();
                 return _layers;
             }
@@ -38,46 +38,55 @@ namespace AutoCadPlugin.Model
             using (DocumentLock docloc = acDoc.LockDocument())
             {
                 // начинаем транзакцию
-                using (Transaction tr = acCurDb.TransactionManager.StartTransaction())
+                try
                 {
-                    // открываем таблицу слоев документа
-                    //LayerTable acLyrTbl = tr.GetObject(acCurDb.LayerTableId, OpenMode.ForWrite) as LayerTable;
-                    LayerTable tblLayer = (LayerTable) tr.GetObject(acCurDb.LayerTableId, OpenMode.ForRead, false);
-                    foreach (var layer in tblLayer)
+                    using (Transaction tr = acCurDb.TransactionManager.StartTransaction())
                     {
-                        byte layerTransparency = 0;
-                        LayerTableRecord entLayer = (LayerTableRecord) tr.GetObject(layer, OpenMode.ForRead);
-                        try
+                        // открываем таблицу слоев документа
+                        //LayerTable acLyrTbl = tr.GetObject(acCurDb.LayerTableId, OpenMode.ForWrite) as LayerTable;
+                        LayerTable tblLayer = (LayerTable)tr.GetObject(acCurDb.LayerTableId, OpenMode.ForRead, false);
+                        foreach (var layer in tblLayer)
                         {
-                            layerTransparency = entLayer.Transparency.Alpha;
-                        }
-                        catch (Exception)
-                        {
+                            byte layerTransparency = 0;
+                            LayerTableRecord entLayer = (LayerTableRecord)tr.GetObject(layer, OpenMode.ForRead);
+                            try
+                            {
+                                layerTransparency = entLayer.Transparency.Alpha;
+                            }
+                            catch (Exception)
+                            {
 
-                            layerTransparency = 0;
+                                layerTransparency = 0;
+                            }
+
+                            _layers.Add(new Layer(entLayer.Id.ToString(), entLayer.Name, '#' + entLayer.Color.ColorValue.Name.Substring(2, 6),
+                                layerTransparency));
                         }
 
-                        _layers.Add(new Layer(entLayer.Name, '#' + entLayer.Color.ColorValue.Name.Substring(2, 6),
-                            layerTransparency));
+
+
+
+
+                        /*// создаем новый слой и задаем ему имя
+                        LayerTableRecord acLyrTblRec = new LayerTableRecord();
+                        acLyrTblRec.Type = "HabrLayer";
+
+                        // заносим созданный слой в таблицу слоев
+                        acLyrTbl.Add(acLyrTblRec);
+
+                        // добавляем созданный слой в документ
+                        tr.AddNewlyCreatedDBObject(acLyrTblRec, true);
+
+                        // фиксируем транзакцию
+                        tr.Commit();*/
                     }
-
-
-
-
-
-                    /*// создаем новый слой и задаем ему имя
-                    LayerTableRecord acLyrTblRec = new LayerTableRecord();
-                    acLyrTblRec.Type = "HabrLayer";
-
-                    // заносим созданный слой в таблицу слоев
-                    acLyrTbl.Add(acLyrTblRec);
-
-                    // добавляем созданный слой в документ
-                    tr.AddNewlyCreatedDBObject(acLyrTblRec, true);
-
-                    // фиксируем транзакцию
-                    tr.Commit();*/
                 }
+                catch (Exception)
+                {
+                    
+                    
+                }
+                
             }
 
             return _layers;
@@ -85,6 +94,10 @@ namespace AutoCadPlugin.Model
 
         }
 
+        public void SaveAllLayers(IList<Layer> layers)
+        {
+            
+        }
 
         public static IList<Shape> GetShapes(string layerName)
         {
@@ -183,22 +196,20 @@ namespace AutoCadPlugin.Model
                             {
                                  switch (acSSObj.ObjectId.ObjectClass.DxfName)
                                  {
-                                     /*case "POINT":
-                                         autocadCurve = (Autodesk.AutoCAD.DatabaseServices.point.Point) acEnt;
-                                         break;*/
+                                     
                                      case "LINE":
                                          var autocadLine = (Autodesk.AutoCAD.DatabaseServices.Line) acEnt;
-                                         shapes.Add(ShapeFactory.GetShape("line", new ArrayList()
-                                         {
+                                         shapes.Add(ShapeFactory.GetShape("line", autocadLine.Id.ToString(), new ArrayList()
+                                         {autocadLine.Id,
                                              autocadLine.StartPoint.X, autocadLine.StartPoint.Y, autocadLine.StartPoint.Z,
                                              autocadLine.EndPoint.X,  autocadLine.EndPoint.Y,  autocadLine.EndPoint.Z,
                                          }));
                                          break;
-                                     //default:
+                                     
                                      case "CIRCLE":
                                          var autocadCircle = (Autodesk.AutoCAD.DatabaseServices.Circle) acEnt;
-                                         
-                                         shapes.Add(ShapeFactory.GetShape("circle", new ArrayList()
+
+                                         shapes.Add(ShapeFactory.GetShape("circle", autocadCircle.Id.ToString(), new ArrayList()
                                          {
                                             autocadCircle.Center.X, autocadCircle.Center.Y, autocadCircle.Center.Z,
                                             autocadCircle.Radius
@@ -206,8 +217,8 @@ namespace AutoCadPlugin.Model
                                          break;
                                      case "POINT":
                                          var autocadPoint = (Autodesk.AutoCAD.DatabaseServices.DBPoint)acEnt;
-                                         shapes.Add(ShapeFactory.GetShape("point", new ArrayList()
-                                            {autocadPoint.Position.X, autocadPoint.Position.Y, autocadPoint.Position.Z}));
+                                         shapes.Add(ShapeFactory.GetShape("point", autocadPoint.Id.ToString(), new ArrayList()
+                                            {autocadPoint.Id, autocadPoint.Position.X, autocadPoint.Position.Y, autocadPoint.Position.Z}));
                                          break;
                                  }
                             }

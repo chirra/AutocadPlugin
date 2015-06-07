@@ -8,10 +8,12 @@ namespace AutoCadPlugin.Model
 {
     class Shape
    {
+        public string Id { get; set; }
         public string Type { get; set; }
 
-        public Shape(string type)
+        public Shape(string type, string id)
         {
+            Id = id;
             Type = type;
         }
 

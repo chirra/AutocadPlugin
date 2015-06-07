@@ -12,7 +12,7 @@ namespace AutoCadPlugin.Model
         public double Y { get; set; }
         public double Z { get; set; }
 
-        public Point(double x, double y, double z):base("point")
+        public Point(string id, double x, double y, double z):base("point", id)
         {
             X = x;
             Y = y;

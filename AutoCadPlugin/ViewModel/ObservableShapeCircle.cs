@@ -8,7 +8,7 @@ namespace AutoCadPlugin.ViewModel
 {
     class ObservableShapeCircle: ObservableShape
     {
-        private double _x;
+      /*  private double _x;
         public double X
         {
             get { return _x; }
@@ -41,6 +41,21 @@ namespace AutoCadPlugin.ViewModel
                 _h = value;
                 OnPropertyChanged("H");
             }
+        }*/
+
+        private ObservableShapePoint _centerPoint;
+
+        public ObservableShapePoint CenterPoint
+        {
+            get
+            {
+                return _centerPoint;
+            }
+            set
+            {
+                _centerPoint = value;
+                OnPropertyChanged("CenterPoint");
+            }
         }
 
         private double _radius;
@@ -56,11 +71,17 @@ namespace AutoCadPlugin.ViewModel
 
 
 
-        public ObservableShapeCircle(string name, double x, double y, double h, double radius):base(name)
+       /* public ObservableShapeCircle(string type, double x, double y, double h, double radius):base(type)
         {
             X = x;
             Y = y;
             H = h;
+            Radius = radius;
+        }    */
+
+        public ObservableShapeCircle(string id, ObservableShapePoint centerPoint, double radius): base("circle", id)
+        {
+            CenterPoint = centerPoint;
             Radius = radius;
         }
     }

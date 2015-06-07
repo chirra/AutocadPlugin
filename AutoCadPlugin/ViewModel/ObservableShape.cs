@@ -8,21 +8,23 @@ namespace AutoCadPlugin.ViewModel
 {
     class ObservableShape: ViewModelBase
     {
-        private string name = string.Empty;
+        public string Id { get; set; }
+        private string type = string.Empty;
 
-        public string Name
+        public string Type
         {
-            get { return name; }
+            get { return type; }
             set
             {
-                name = value;
+                type = value;
                 OnPropertyChanged("Type");
             }
         }
 
-        public ObservableShape(string name)
+        public ObservableShape(string type, string id)
         {
-            Name = name;
+            Type = type;
+            Id = id;
         }
     }
 }

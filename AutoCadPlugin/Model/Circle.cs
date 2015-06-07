@@ -11,7 +11,7 @@ namespace AutoCadPlugin.Model
         public Point CenterPoint { get; set; }
         public double Radius { get; set; }
 
-        public Circle(Point centerPoint, double radius):base("circle")
+        public Circle(string id, Point centerPoint, double radius):base("circle", id)
         {
             CenterPoint = centerPoint;
             Radius = radius;
