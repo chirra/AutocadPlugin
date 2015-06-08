@@ -49,7 +49,7 @@ namespace AutoCadPlugin.ViewModel
             get { return endPoint; }
             set
             {
-                startPoint = value;
+                endPoint = value;
                 OnPropertyChanged("EndPoint");
             }
         }

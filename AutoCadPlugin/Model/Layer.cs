@@ -14,8 +14,8 @@ namespace AutoCadPlugin.Model
         public string Name { get; set; }
         public IList<Shape> Shapes { get; set; }
 
-        private byte _transparency = 0;
-        public byte Transparency
+        private int _transparency = 0;
+        public int Transparency
         {
             get { return _transparency; }
             set
@@ -35,7 +35,7 @@ namespace AutoCadPlugin.Model
         }
 
 
-       public Layer(string id, string name, string color, byte transparency)
+       public Layer(string id, string name, string color, int transparency)
         {
             Id = id;
            Name = name;

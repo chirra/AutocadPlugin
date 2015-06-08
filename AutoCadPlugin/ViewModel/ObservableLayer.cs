@@ -44,8 +44,8 @@ namespace AutoCadPlugin.ViewModel
             set { color = value; }
         }
 
-        private byte _transparency;
-        public byte Transparency
+        private int _transparency;
+        public int Transparency
         {
             get { return _transparency; }
             set
@@ -55,7 +55,7 @@ namespace AutoCadPlugin.ViewModel
             }
         }
 
-        public ObservableLayer(string id, string name, string color, byte transparency)
+        public ObservableLayer(string id, string name, string color, int transparency)
         {
             Id = id;
             Name = name;
@@ -63,7 +63,7 @@ namespace AutoCadPlugin.ViewModel
             Transparency = transparency;
         }
 
-        public ObservableLayer(string id, string name, string color, byte transparency, IList<ObservableShape> observableShapes ):this(id, name, color, transparency)
+        public ObservableLayer(string id, string name, string color, int transparency, IList<ObservableShape> observableShapes ):this(id, name, color, transparency)
         {
             foreach (var observableShape in observableShapes)
             {

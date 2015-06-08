@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -41,39 +42,7 @@ namespace AutoCadPlugin.ViewModel
             {
                 if (_observableLayers == null)
                 {
-                    _observableLayers = new ObservableCollection<ObservableLayer>();
-                    foreach (var layer in LayerRepository.AllLayers)
-                    {
-                        
-                        ObservableLayer observableLayer = new ObservableLayer(layer.Id, layer.Name, layer.Color, layer.Transparency);
-                        foreach (var shape in LayerRepository.GetShapes(layer.Name))
-                        {
-                            if (shape.Type == "circle")
-                            {
-                                ObservableShape observableShape = new ObservableShapeCircle( ((Circle)shape).Id,
-                                    new ObservableShapePoint( ((Circle)shape).CenterPoint.Id, ((Circle)shape).CenterPoint.X, ((Circle)shape).CenterPoint.Y, ((Circle)shape).CenterPoint.Z),
-                                    ((Circle)shape).Radius);
-
-                                observableLayer.ObservableShapes.Add(observableShape);
-                            }
-                            else if (shape.Type == "point")
-                            {
-                                ObservableShape observableShape = new ObservableShapePoint( ((Point)shape).Id, ((Point)shape).X, ((Point)shape).Y, ((Point)shape).Z);
-
-                                observableLayer.ObservableShapes.Add(observableShape);
-                            }
-                            else if (shape.Type == "line")
-                            {
-                                ObservableShape observableShape = new ObservableShapeLine(((Line)shape).Id,
-                                    new ObservableShapePoint(((Line)shape).StartPoint.Id, ((Line)shape).StartPoint.X, ((Line)shape).StartPoint.Y, ((Line)shape).StartPoint.Z),
-                                    new ObservableShapePoint(((Line)shape).StartPoint.Id, ((Line)shape).EndPoint.X, ((Line)shape).EndPoint.Y, ((Line)shape).EndPoint.Z));
-
-                                observableLayer.ObservableShapes.Add(observableShape);
-                            }
-                        }
-
-                        _observableLayers.Add(observableLayer);
-                    }
+                    _observableLayers = loadLayers();
                 }
                     
                    /* _observableLayers = new ObservableCollection<ObservableLayer>()
@@ -90,46 +59,132 @@ namespace AutoCadPlugin.ViewModel
             }
         }
 
-        RelayCommand _commandRefresh;
+        private ObservableCollection<ObservableLayer> loadLayers()
+        {
+            ObservableCollection<ObservableLayer> observableLayers = new ObservableCollection<ObservableLayer>();
+            foreach (var layer in LayerRepository.AllLayers)
+            {
+
+                ObservableLayer observableLayer = new ObservableLayer(layer.Id, layer.Name, layer.Color, layer.Transparency);
+                foreach (var shape in LayerRepository.GetShapes(layer.Name))
+                {
+                    if (shape.Type == "circle")
+                    {
+                        ObservableShape observableShape = new ObservableShapeCircle(((Circle)shape).Id,
+                            new ObservableShapePoint(((Circle)shape).CenterPoint.Id, ((Circle)shape).CenterPoint.X, ((Circle)shape).CenterPoint.Y, ((Circle)shape).CenterPoint.Z),
+                            ((Circle)shape).Radius);
+
+                        observableLayer.ObservableShapes.Add(observableShape);
+                    }
+                    else if (shape.Type == "point")
+                    {
+                        ObservableShape observableShape = new ObservableShapePoint(((Point)shape).Id, ((Point)shape).X, ((Point)shape).Y, ((Point)shape).Z);
+
+                        observableLayer.ObservableShapes.Add(observableShape);
+                    }
+                    else if (shape.Type == "line")
+                    {
+                        ObservableShape observableShape = new ObservableShapeLine(((Line)shape).Id,
+                            new ObservableShapePoint(((Line)shape).StartPoint.Id, ((Line)shape).StartPoint.X, ((Line)shape).StartPoint.Y, ((Line)shape).StartPoint.Z),
+                            new ObservableShapePoint(((Line)shape).EndPoint.Id, ((Line)shape).EndPoint.X, ((Line)shape).EndPoint.Y, ((Line)shape).EndPoint.Z));
+
+                        observableLayer.ObservableShapes.Add(observableShape);
+                    }
+                }
+
+                observableLayers.Add(observableLayer);
+            }
+            return observableLayers;
+        }
+
+        ICommand _commandRefresh;
         public ICommand CommandRefresh
         {
             get
             {
                 
-                if (_commandRefresh == null)
+                //if (_commandRefresh == null)
                     //_commandRefresh = new RelayCommand(RefreshObservableLayers, CanRefreshObservableLayers);
-                    _commandRefresh = new RelayCommand(RefreshObservableLayers);
+                    
                 return _commandRefresh;
             }
+            set { _commandRefresh = value;}
         }
 
         public void RefreshObservableLayers(object parameter)
         {
-            _observableLayers = null;
-            //ObservableLayers = null;
+            //_observableLayers = null;
+            ObservableLayers = loadLayers();
         }
 
-        private RelayCommand _commandApply;
+        private ICommand _commandApply;
 
         public ICommand CommandApply
         {
             get
             {
-                //Save to database
+                /*if (_commandApply == null)
+                    _commandApply = new RelayCommand(ApplyChanges);*/
+                
                 return _commandApply;
+            }
+            set
+            {
+                _commandApply = value;
             }
         }
 
-        /*ObservableCollection<ObservableShape> _shapes;
-
-        public ObservableCollection<ObservableShape> observableShapes
+        public MainWindowViewModel()
         {
-            get
-            {
-                if (_shapes = null)
-                    _shapes = 
-            }
-        }*/
+            CommandApply = new RelayCommand(new Action<object>(ApplyChanges));
+            CommandRefresh = new RelayCommand(RefreshObservableLayers);
+        }
 
+        public void ApplyChanges(object parameter)
+        {
+            foreach (var observableLayer in ObservableLayers)
+            {
+                LayerRepository.SaveLayer(observableLayer.Id,
+                    new ArrayList() {observableLayer.Name, observableLayer.Color, observableLayer.Transparency});
+                foreach (var observableShape in observableLayer.ObservableShapes)
+                    if (observableShape.Type == "point")
+                        LayerRepository.SaveShape("point", observableShape.Id,
+                            new ArrayList()
+                            {
+                                ((ObservableShapePoint) observableShape).X,
+                                ((ObservableShapePoint) observableShape).Y,
+                                ((ObservableShapePoint) observableShape).Z
+                            });
+                    else if(observableShape.Type == "line")
+                        LayerRepository.SaveShape("line", observableShape.Id,
+                            new ArrayList()
+                            {
+                                ((ObservableShapeLine) observableShape).StartPoint.X,
+                                ((ObservableShapeLine) observableShape).StartPoint.Y,
+                                ((ObservableShapeLine) observableShape).StartPoint.Z,
+                                ((ObservableShapeLine) observableShape).EndPoint.X,
+                                ((ObservableShapeLine) observableShape).EndPoint.Y,
+                                ((ObservableShapeLine) observableShape).EndPoint.Z
+                            });
+                    else if(observableShape.Type == "circle")
+                        LayerRepository.SaveShape("circle", observableShape.Id,
+                            new ArrayList()
+                            {
+                                ((ObservableShapeCircle) observableShape).CenterPoint.X,
+                                ((ObservableShapeCircle) observableShape).CenterPoint.Y,
+                                ((ObservableShapeCircle) observableShape).CenterPoint.Z,
+                                ((ObservableShapeCircle) observableShape).Radius,
+                            });
+            }
+        }
+
+        public bool CanApplyChanges(object parameter)
+        {
+            if (_observableLayers == null)
+                return false;
+            else return true;
+        }
+
+ 
     }
 }
