@@ -62,11 +62,11 @@ namespace AutoCadPlugin.ViewModel
         private ObservableCollection<ObservableLayer> loadLayers()
         {
             ObservableCollection<ObservableLayer> observableLayers = new ObservableCollection<ObservableLayer>();
-            foreach (var layer in LayerRepository.AllLayers)
+            foreach (var layer in Model.DAL.GetLayers())
             {
 
                 ObservableLayer observableLayer = new ObservableLayer(layer.Id, layer.Name, layer.Color, layer.Transparency);
-                foreach (var shape in LayerRepository.GetShapes(layer.Name))
+                foreach (var shape in Model.DAL.GetShapes(layer.Name))
                 {
                     if (shape.Type == "circle")
                     {
@@ -144,11 +144,11 @@ namespace AutoCadPlugin.ViewModel
         {
             foreach (var observableLayer in ObservableLayers)
             {
-                LayerRepository.SaveLayer(observableLayer.Id,
+                Model.DAL.SaveLayer(observableLayer.Id,
                     new ArrayList() {observableLayer.Name, observableLayer.Color, observableLayer.Transparency});
                 foreach (var observableShape in observableLayer.ObservableShapes)
                     if (observableShape.Type == "point")
-                        LayerRepository.SaveShape("point", observableShape.Id,
+                        Model.DAL.SaveShape("point", observableShape.Id,
                             new ArrayList()
                             {
                                 ((ObservableShapePoint) observableShape).X,
@@ -156,7 +156,7 @@ namespace AutoCadPlugin.ViewModel
                                 ((ObservableShapePoint) observableShape).Z
                             });
                     else if(observableShape.Type == "line")
-                        LayerRepository.SaveShape("line", observableShape.Id,
+                        Model.DAL.SaveShape("line", observableShape.Id,
                             new ArrayList()
                             {
                                 ((ObservableShapeLine) observableShape).StartPoint.X,
@@ -167,7 +167,7 @@ namespace AutoCadPlugin.ViewModel
                                 ((ObservableShapeLine) observableShape).EndPoint.Z
                             });
                     else if(observableShape.Type == "circle")
-                        LayerRepository.SaveShape("circle", observableShape.Id,
+                        Model.DAL.SaveShape("circle", observableShape.Id,
                             new ArrayList()
                             {
                                 ((ObservableShapeCircle) observableShape).CenterPoint.X,

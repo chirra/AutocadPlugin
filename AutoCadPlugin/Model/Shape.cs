@@ -6,20 +6,19 @@ using System.Threading.Tasks;
 
 namespace AutoCadPlugin.Model
 {
-    class Shape
-   {
+    internal abstract class Shape
+    {
         public string Id { get; set; }
-        public string Type { get; set; }
+        public abstract ShapeType Type { get; }
 
-        public Shape(string type, string id)
+        protected Shape(string id)
         {
             Id = id;
-            Type = type;
         }
 
         public override string ToString()
         {
-            return Type;
+            return Type.ToString();
         }
-   }
+    }
 }

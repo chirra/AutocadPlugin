@@ -92,15 +92,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands.cs" />
-    <Compile Include="DAL\DalLayers.cs" />
     <Compile Include="Infrastructure\RelayCommand.cs" />
     <Compile Include="Model\Circle.cs" />
     <Compile Include="Model\Layer.cs" />
-    <Compile Include="Model\LayerRepository.cs" />
+    <Compile Include="Model\DAL.cs" />
     <Compile Include="Model\Line.cs" />
     <Compile Include="Model\Point.cs" />
     <Compile Include="Model\Shape.cs" />
     <Compile Include="Model\ShapeFactory.cs" />
+    <Compile Include="Model\ShapeType.cs" />
     <Compile Include="ViewModel\ObservableLayer.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\ObservableShape.cs" />

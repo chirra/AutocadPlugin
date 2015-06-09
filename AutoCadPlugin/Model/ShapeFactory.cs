@@ -10,28 +10,34 @@ namespace AutoCadPlugin.Model
 {
     class ShapeFactory
     {
-
-        public static Shape GetShape(string type, string id, ArrayList parameters)
+        /// <summary>
+        /// Return shape of concrete type
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="id"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public static Shape CreateShape(ShapeType type, string id, ArrayList parameters)
         {
-            Shape result = new Shape(type, id);
 
-            switch (type.ToLower().Trim())
+            switch (type)
             {
-                case "point":
-                    result = new Point(id, (double) parameters[0], (double) parameters[1], (double) parameters[2]);
-                    break;
-                case "line":
-                    result = new Line(id,
+                case ShapeType.Point:
+                    return new Point(id, (double) parameters[0], (double) parameters[1], (double) parameters[2]);
+                    
+                case ShapeType.Line:
+                    return new Line(id,
                         new Point(id, (double)parameters[0], (double)parameters[1], (double)parameters[2]), 
                         new Point(id, (double)parameters[3], (double)parameters[4], (double)parameters[5])
                         );
-                    break;
-                case "circle":
-                    result = new Circle(id, new Point(id, (double)parameters[0], (double)parameters[1], (double)parameters[2]), (double)parameters[3]);
-                    break;
+                    
+                case ShapeType.Circle:
+                    return new Circle(id, new Point(id, (double)parameters[0], (double)parameters[1], (double)parameters[2]), (double)parameters[3]);
+          
+                default:
+                    return null;
             }
-
-            return result;
+            
         }
     }
 }

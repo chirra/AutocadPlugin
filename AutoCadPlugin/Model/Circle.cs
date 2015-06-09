@@ -11,10 +11,15 @@ namespace AutoCadPlugin.Model
         public Point CenterPoint { get; set; }
         public double Radius { get; set; }
 
-        public Circle(string id, Point centerPoint, double radius):base("circle", id)
+        public Circle(string id, Point centerPoint, double radius):base(id)
         {
             CenterPoint = centerPoint;
             Radius = radius;
+        }
+
+        public override ShapeType Type
+        {
+            get { return ShapeType.Circle; }
         }
     }
 }

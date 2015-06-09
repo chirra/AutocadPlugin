@@ -11,10 +11,15 @@ namespace AutoCadPlugin.Model
         public Point StartPoint { get; set; }
         public Point EndPoint { get; set; }
 
-        public Line(string id, Point startPoint, Point endPoint):base("line", id)
+        public Line(string id, Point startPoint, Point endPoint):base(id)
         {
             StartPoint = startPoint;
             EndPoint = endPoint;
+        }
+
+        public override ShapeType Type
+        {
+            get { return ShapeType.Line; }
         }
     }
 }

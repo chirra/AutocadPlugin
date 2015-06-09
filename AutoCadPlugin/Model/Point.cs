@@ -12,11 +12,19 @@ namespace AutoCadPlugin.Model
         public double Y { get; set; }
         public double Z { get; set; }
 
-        public Point(string id, double x, double y, double z):base("point", id)
+        public Point(string id, double x, double y, double z):base(id)
         {
             X = x;
             Y = y;
             Z = z;
+        }
+
+        public override ShapeType Type
+        {
+            get
+            {
+                return ShapeType.Point;
+            }
         }
     }
 }

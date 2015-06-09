@@ -6,25 +6,28 @@ using System.Threading.Tasks;
 
 namespace AutoCadPlugin.ViewModel
 {
-    class ObservableShape: ViewModelBase
+    abstract class ObservableShape: ViewModelBase
     {
         public string Id { get; set; }
-        private string type = string.Empty;
+       // private string _type = string.Empty;
 
-        public string Type
-        {
-            get { return type; }
-            set
+        public abstract ObservableShapeType Type { get; }
+        //get { return _type; }
+            /*set
             {
-                type = value;
+                _type = value;
                 OnPropertyChanged("Type");
-            }
+            }*/ }
+
+        protected ObservableShape(string id)
+        {
+            
+            Id = id;
         }
 
-        public ObservableShape(string type, string id)
+        public override string ToString()
         {
-            Type = type;
-            Id = id;
+            return Type.ToString();
         }
     }
 }
