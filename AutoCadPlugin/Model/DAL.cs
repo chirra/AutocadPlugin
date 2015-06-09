@@ -14,8 +14,9 @@ using Autodesk.AutoCAD.Geometry;
 
 namespace AutoCadPlugin.Model
 {
-    internal class DAL
+    internal class Dal
     {
+        #region GetLayers
         /// <summary>
         /// Return layers collection
         /// </summary>
@@ -58,8 +59,9 @@ namespace AutoCadPlugin.Model
 
             return layers;
         }
+#endregion
 
-
+        #region GetShapes
         /// <summary>
         /// Return Shapes collection of the layer
         /// </summary>
@@ -107,6 +109,17 @@ namespace AutoCadPlugin.Model
                                 {
                                     switch (acSSObj.ObjectId.ObjectClass.DxfName)
                                     {
+                                        case "POINT":
+                                            var autocadPoint = (Autodesk.AutoCAD.DatabaseServices.DBPoint)acEnt;
+                                            shapes.Add(ShapeFactory.CreateShape(ShapeType.Point, autocadPoint.Id.ToString(),
+                                                new ArrayList()
+                                                {
+                                                    autocadPoint.Position.X,
+                                                    autocadPoint.Position.Y,
+                                                    autocadPoint.Position.Z
+                                                }));
+                                            break;
+
                                         case "LINE":
                                             var autocadLine = (Autodesk.AutoCAD.DatabaseServices.Line) acEnt;
 
@@ -135,16 +148,6 @@ namespace AutoCadPlugin.Model
                                                     autocadCircle.Radius
                                                 }));
                                             break;
-                                        case "POINT":
-                                            var autocadPoint = (Autodesk.AutoCAD.DatabaseServices.DBPoint) acEnt;
-                                            shapes.Add(ShapeFactory.CreateShape(ShapeType.Point, autocadPoint.Id.ToString(),
-                                                new ArrayList()
-                                                {
-                                                    autocadPoint.Position.X,
-                                                    autocadPoint.Position.Y,
-                                                    autocadPoint.Position.Z
-                                                }));
-                                            break;
                                     }
                                 }
                             }
@@ -159,8 +162,9 @@ namespace AutoCadPlugin.Model
             }
             return shapes;
         }
+#endregion
 
-
+        #region SaveLayer
         /// <summary>
         /// Save layer to the database
         /// </summary>
@@ -202,8 +206,9 @@ namespace AutoCadPlugin.Model
                 // Очистка транзакции
             }
         }
+        #endregion
 
-
+        #region SaveShape
         internal static void SaveShape(ShapeType shapeType, string shapeId, ArrayList parameters)
         {
 
@@ -280,7 +285,7 @@ namespace AutoCadPlugin.Model
             }
 
         }
-
+        #endregion
 
     }//class
 }//namespace

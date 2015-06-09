@@ -16,31 +16,29 @@
     
     
   <UserControl.Resources>
+      
         <HierarchicalDataTemplate DataType="{x:Type local:ObservableLayer}" ItemsSource="{Binding ObservableShapes}">
-            <!--<Label Content="{Binding Name}"></Label>-->
             <StackPanel Orientation="Horizontal">
                 <!--<xctk:ColorPicker Name="ClrPcker_Background" ></xctk:ColorPicker>-->
                 <!--<xctk:ColorCanvas  />-->
                 <Button Background="{Binding Path=Color}" Height="10" Width="10"></Button>
                 <TextBox Width="20" Margin="5,5,5,5"  Text="{Binding Path=Transparency, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 <Label Content="{Binding Name, UpdateSourceTrigger=PropertyChanged}"></Label>
-                
             </StackPanel>
         </HierarchicalDataTemplate>
-      
-      <DataTemplate DataType="{x:Type local:ObservableShapeCircle}">
-            <StackPanel Orientation="Horizontal"> 
-                <Label Content="{Binding Path=Type, StringFormat='\{0\}: '}"></Label>
-                <TextBox Text="{Binding Path=CenterPoint.X, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                <TextBox Text="{Binding Path=CenterPoint.Y, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                <TextBox Text="{Binding Path=CenterPoint.Z, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                <TextBox Text="{Binding Path=Radius, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+       <DataTemplate DataType="{x:Type local:ObservableShapePoint}">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="{Binding Path=RuType, StringFormat='\{0\}: '}"></Label>
+                <TextBox Text="{Binding Path=X, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox Text="{Binding Path=Y, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox Text="{Binding Path=Z, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"></TextBox>
             </StackPanel>
         </DataTemplate>
       
         <DataTemplate DataType="{x:Type local:ObservableShapeLine}">
             <StackPanel Orientation="Horizontal">
-                <Label Content="{Binding Path=Type, StringFormat='\{0\}: '}"></Label>
+                <Label Content="{Binding Path=RuType, StringFormat='\{0\}: '}"></Label>
                 <TextBox Text="{Binding Path=StartPoint.X, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBox Text="{Binding Path=StartPoint.Y, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBox Text="{Binding Path=StartPoint.Z, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"/>
@@ -50,18 +48,20 @@
             </StackPanel>
         </DataTemplate>
       
-        <DataTemplate DataType="{x:Type local:ObservableShapePoint}">
-            <StackPanel Orientation="Horizontal">
-                <Label Content="{Binding Path=Type, StringFormat='\{0\}: '}"></Label>
-                <TextBox Text="{Binding Path=X, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                <TextBox Text="{Binding Path=Y, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                <TextBox Text="{Binding Path=Z, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <DataTemplate DataType="{x:Type local:ObservableShapeCircle}">
+            <StackPanel Orientation="Horizontal"> 
+                <Label Content="{Binding Path=RuType, StringFormat='\{0\}: '}"></Label>
+                <TextBox Text="{Binding Path=CenterPoint.X, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox Text="{Binding Path=CenterPoint.Y, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox Text="{Binding Path=CenterPoint.Z, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox Text="{Binding Path=Radius, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"></TextBox>
             </StackPanel>
         </DataTemplate>
+  
     </UserControl.Resources>
 
+    
     <Grid >
-        
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
             
@@ -69,12 +69,18 @@
         </Grid.RowDefinitions>
 
         <Border BorderThickness ="2">
-        <TreeView Grid.Row="0" Name="LayersTreeView" ItemsSource="{Binding ObservableLayers}"/>
-            
-
+            <TreeView Grid.Row="0" Name="LayersTreeView" ItemsSource="{Binding ObservableLayers}">
+               <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="IsExpanded" Value="True"/>
+                    </Style>
+                </TreeView.ItemContainerStyle>
+            </TreeView>
+                
+  
         </Border>
         <Button Content="Применить" Command ="{Binding CommandApply}" HorizontalAlignment="Left" Margin="5,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Отмена" HorizontalAlignment="Left" Margin="90,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Отмена" Command ="{Binding CommandRefresh}" HorizontalAlignment="Left" Margin="90,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
         <Button Content="Обновить" Command ="{Binding CommandRefresh}" HorizontalAlignment="Left" Margin="175,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
     </Grid>
 </UserControl>

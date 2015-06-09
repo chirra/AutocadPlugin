@@ -21,10 +21,7 @@ namespace AutoCadPlugin.Model
 
         public override ShapeType Type
         {
-            get
-            {
-                return ShapeType.Point;
-            }
+            get { return ShapeType.Point; }
         }
     }
 }

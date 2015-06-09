@@ -24,3 +24,4 @@ C:\.vstudio\AutoCadPlugin\AutoCadPlugin\obj\Debug\View\MainWindow.baml
 C:\.vstudio\AutoCadPlugin\AutoCadPlugin\obj\Debug\AutoCadPlugin.g.resources
 C:\.vstudio\AutoCadPlugin\AutoCadPlugin\obj\Debug\AutoCadPlugin.dll
 C:\.vstudio\AutoCadPlugin\AutoCadPlugin\obj\Debug\AutoCadPlugin.pdb
+C:\.vstudio\AutoCadPlugin\AutoCadPlugin\obj\Debug\AutoCadPlugin.csprojResolveAssemblyReference.cache

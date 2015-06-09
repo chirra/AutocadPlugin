@@ -9,19 +9,11 @@ namespace AutoCadPlugin.ViewModel
     abstract class ObservableShape: ViewModelBase
     {
         public string Id { get; set; }
-       // private string _type = string.Empty;
-
         public abstract ObservableShapeType Type { get; }
-        //get { return _type; }
-            /*set
-            {
-                _type = value;
-                OnPropertyChanged("Type");
-            }*/ }
+        public abstract String RuType { get; }
 
         protected ObservableShape(string id)
         {
-            
             Id = id;
         }
 

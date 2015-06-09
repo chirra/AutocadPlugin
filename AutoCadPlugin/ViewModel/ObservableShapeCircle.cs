@@ -8,8 +8,8 @@ namespace AutoCadPlugin.ViewModel
 {
     class ObservableShapeCircle: ObservableShape
     {
-        private ObservableShapePoint _centerPoint;
 
+        private ObservableShapePoint _centerPoint;
         public ObservableShapePoint CenterPoint
         {
             get
@@ -23,6 +23,7 @@ namespace AutoCadPlugin.ViewModel
             }
         }
 
+
         private double _radius;
         public double Radius
         {
@@ -35,10 +36,20 @@ namespace AutoCadPlugin.ViewModel
         }
 
 
-        public ObservableShapeCircle(string id, ObservableShapePoint centerPoint, double radius): base("circle", id)
+        public ObservableShapeCircle(string id, ObservableShapePoint centerPoint, double radius): base(id)
         {
             CenterPoint = centerPoint;
             Radius = radius;
+        }
+
+        public override ObservableShapeType Type
+        {
+            get { return ObservableShapeType.Circle; }
+        }
+
+        public override string RuType
+        {
+            get { return "Окружность"; }
         }
     }
 }

@@ -42,16 +42,26 @@ namespace AutoCadPlugin.ViewModel
                 OnPropertyChanged("Z");
             }
         }
-        
+  
 
-
-
-        public ObservableShapePoint(string id, double x, double y, double z):base("point", id)
+        public ObservableShapePoint(string id, double x, double y, double z):base(id)
         {
             X = x;
             Y = y;
             Z = z;
         }
 
+
+        public override ObservableShapeType Type
+        {
+            get { return ObservableShapeType.Point; }
+        }
+
+        public override String RuType
+        {
+            get { return "Точка"; }
+        }
+
+      
     }
 }
