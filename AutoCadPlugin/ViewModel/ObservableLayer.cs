@@ -12,20 +12,11 @@ namespace AutoCadPlugin.ViewModel
     {
         public string Id { get; set; }
 
+        //Collection of Shapes
         private List<ObservableShape> _observableShapes;
         public List<ObservableShape> ObservableShapes
         {
-            get
-            {
-                if (_observableShapes == null)
-                {
-                   _observableShapes  = new List<ObservableShape>();
-                    //_observableShapes.Add(new ObservableShape("rectangle"));
-                }
-
-              
-                return _observableShapes;
-            }
+            get { return _observableShapes ?? (_observableShapes = new List<ObservableShape>()); }
             set
             {
                 _observableShapes = value;
@@ -36,13 +27,7 @@ namespace AutoCadPlugin.ViewModel
         
         public string Name { get; set; }
 
-        private string color;
-
-        public string Color
-        {
-            get { return color; }
-            set { color = value; }
-        }
+        public string Color { get; set; }
 
         private int _transparency;
         public int Transparency
@@ -63,13 +48,6 @@ namespace AutoCadPlugin.ViewModel
             Transparency = transparency;
         }
 
-        public ObservableLayer(string id, string name, string color, int transparency, IList<ObservableShape> observableShapes ):this(id, name, color, transparency)
-        {
-            foreach (var observableShape in observableShapes)
-            {
-                ObservableShapes.Add(observableShape);
-            }
-            
-        }
+      
     }
 }

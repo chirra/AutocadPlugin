@@ -9,65 +9,99 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     
-    
+    <!--DATACONTEXT POINT TO MainVindowVieModel-->
     <UserControl.DataContext>
         <local:MainWindowViewModel></local:MainWindowViewModel>
     </UserControl.DataContext>
     
-    
+   <!--RESOURCES BEGIN--> 
   <UserControl.Resources>
+        <!--STYLE FOR LABELS-->
+        <Style x:Key="LabelStyle">
+            <Setter Property="Label.Margin" Value="0"></Setter>
+            <Setter Property="Label.Padding" Value="0"></Setter>
+            <Setter Property="Label.VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="Label.HorizontalAlignment" Value="Center"></Setter>
+        </Style>
+
+        <!--STYLE FOR TEXTBOXES-->
+        <Style x:Key="TextBoxStyle">
+          <Setter Property="TextBox.Margin" Value="0"></Setter>
+          <Setter Property="TextBox.Padding" Value="0"></Setter>
+          <Setter Property="TextBox.VerticalAlignment" Value="Center"></Setter>
+          <Setter Property="TextBox.HorizontalAlignment" Value="Center"></Setter>
+          <Setter Property="TextBox.BorderThickness" Value="0"></Setter>
+          <Setter Property="TextBox.BorderBrush" Value="{x:Null}"></Setter>
+      </Style>
       
+        <!--RESOURCE FOR TREEVIEW-->
         <HierarchicalDataTemplate DataType="{x:Type local:ObservableLayer}" ItemsSource="{Binding ObservableShapes}">
+            <!--LAYERS-->
             <StackPanel Orientation="Horizontal">
                 <!--<xctk:ColorPicker Name="ClrPcker_Background" ></xctk:ColorPicker>-->
                 <!--<xctk:ColorCanvas  />-->
                 <Button Background="{Binding Path=Color}" Height="10" Width="10"></Button>
-                <TextBox Width="20" Margin="5,5,5,5"  Text="{Binding Path=Transparency, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox Text="{Binding Path=Transparency, UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource TextBoxStyle}"></TextBox>
                 <Label Content="{Binding Name, UpdateSourceTrigger=PropertyChanged}"></Label>
             </StackPanel>
         </HierarchicalDataTemplate>
 
+       <!--POINTS-->
        <DataTemplate DataType="{x:Type local:ObservableShapePoint}">
             <StackPanel Orientation="Horizontal">
                 <Label Content="{Binding Path=RuType, StringFormat='\{0\}: '}"></Label>
-                <TextBox Text="{Binding Path=X, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                <TextBox Text="{Binding Path=Y, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                <TextBox Text="{Binding Path=Z, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox Text="{Binding Path=X, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxStyle}"></TextBox>
+                <Label Content=":" Style="{StaticResource LabelStyle}"></Label>
+                <TextBox Text="{Binding Path=Y, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxStyle}"></TextBox>
+                <Label Content=":" Style="{StaticResource LabelStyle}"></Label>
+                <TextBox Text="{Binding Path=Z, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxStyle}"></TextBox>
             </StackPanel>
         </DataTemplate>
       
+        <!--LINES-->
         <DataTemplate DataType="{x:Type local:ObservableShapeLine}">
             <StackPanel Orientation="Horizontal">
                 <Label Content="{Binding Path=RuType, StringFormat='\{0\}: '}"></Label>
-                <TextBox Text="{Binding Path=StartPoint.X, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBox Text="{Binding Path=StartPoint.Y, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBox Text="{Binding Path=StartPoint.Z, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBox Text="{Binding Path=EndPoint.X, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBox Text="{Binding Path=EndPoint.Y, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBox Text="{Binding Path=EndPoint.Z, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Text="{Binding Path=StartPoint.X, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxStyle}"/>
+                <Label Content=":" Style="{StaticResource LabelStyle}"></Label>
+                <TextBox Text="{Binding Path=StartPoint.Y, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxStyle}"/>
+                <Label Content=":" Style="{StaticResource LabelStyle}"></Label>
+                <TextBox Text="{Binding Path=StartPoint.Z, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxStyle}"/>
+                <Label Content="-" Style="{StaticResource LabelStyle}"></Label>
+                <TextBox Text="{Binding Path=EndPoint.X, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxStyle}"/>
+                <Label Content=":" Style="{StaticResource LabelStyle}"></Label>
+                <TextBox Text="{Binding Path=EndPoint.Y, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxStyle}"/>
+                <Label Content=":" Style="{StaticResource LabelStyle}"></Label>
+                <TextBox Text="{Binding Path=EndPoint.Z, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxStyle}"/>
             </StackPanel>
         </DataTemplate>
       
+        <!--CIRCLES-->
         <DataTemplate DataType="{x:Type local:ObservableShapeCircle}">
             <StackPanel Orientation="Horizontal"> 
                 <Label Content="{Binding Path=RuType, StringFormat='\{0\}: '}"></Label>
-                <TextBox Text="{Binding Path=CenterPoint.X, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                <TextBox Text="{Binding Path=CenterPoint.Y, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                <TextBox Text="{Binding Path=CenterPoint.Z, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                <TextBox Text="{Binding Path=Radius, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox Text="{Binding Path=CenterPoint.X, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxStyle}"></TextBox>
+                <Label Content=":" Style="{StaticResource LabelStyle}"></Label>
+                <TextBox Text="{Binding Path=CenterPoint.Y, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxStyle}"></TextBox>
+                <Label Content=":" Style="{StaticResource LabelStyle}"></Label>
+                <TextBox Text="{Binding Path=CenterPoint.Z, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxStyle}"></TextBox>
+                <Label Content=" R:" Style="{StaticResource LabelStyle}"></Label>
+                <TextBox Text="{Binding Path=Radius, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxStyle}"></TextBox>
             </StackPanel>
         </DataTemplate>
   
     </UserControl.Resources>
+    <!--RESOURCES END-->
 
     
+    <!--GRID WITH TWO ROWS-->
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
-            
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
 
+        <!--TREEVIEW WITH BORDERS, ALWAYS EXPANDED-->
         <Border BorderThickness ="2">
             <TreeView Grid.Row="0" Name="LayersTreeView" ItemsSource="{Binding ObservableLayers}">
                <TreeView.ItemContainerStyle>
@@ -76,11 +110,13 @@
                     </Style>
                 </TreeView.ItemContainerStyle>
             </TreeView>
-                
-  
         </Border>
-        <Button Content="Применить" Command ="{Binding CommandApply}" HorizontalAlignment="Left" Margin="5,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Отмена" Command ="{Binding CommandRefresh}" HorizontalAlignment="Left" Margin="90,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Обновить" Command ="{Binding CommandRefresh}" HorizontalAlignment="Left" Margin="175,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
+ 
+        <!--BUTTONS-->
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+        <Button Content="Применить" Command ="{Binding CommandApply}" HorizontalAlignment="Left" Margin="5,5,5,5" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
+            <Button Content="Отмена" Command ="{Binding CommandRefresh}" HorizontalAlignment="Left" Margin="5,5,5,5" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
+            <Button Content="Обновить" Command ="{Binding CommandRefresh}" HorizontalAlignment="Left" Margin="5,5,5,5" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
+        </StackPanel>
     </Grid>
 </UserControl>
